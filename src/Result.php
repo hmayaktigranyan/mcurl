@@ -104,7 +104,12 @@ class Result {
             $this->rawHeaders['result'] = trim(array_shift($headers));
 
             foreach ($headers AS $header) {
-                list($name, $value) = array_map('trim', explode(':', $header, 2));
+ 		$parts = array_map('trim', explode(':', $header, 2));
+                $name = $parts[0];
+                $value = '';
+                if (!empty($parts[1])) {
+                    $value = $parts[1];
+                }
                 $name = strtolower($name);
                 $this->rawHeaders[$name] = $value;
             }
